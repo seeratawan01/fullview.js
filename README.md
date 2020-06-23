@@ -9,14 +9,15 @@ Create full screen pages fast and simple - A simple and easy to use library that
 ---
 
 [![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/fullview.js?label=fullView.js%20Version%20)](https://github.com/seeratawan01/fullview.js) [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 [Demo online](http://seeratawan.goprogs.com/fullView/) | [Codepen](https://codepen.io/alvarotrigo/pen/NxyPPp)
 
 ---
 ## Get Started
 Dependency: jQuery 1.1+
 All you will need to include:
--   The JavaScript file `fullpage.js` (or its minified version `fullpage.min.js`)
--   The css file `fullpage.css` (or its minified version `fullpage.min.css`)
+-   The JavaScript file `fullview.js` (or its minified version `fullview.min.js`)
+-   The css file `fullview.css` (or its minified version `fullview.min.css`)
 ### Including files:
 ```html
 <link rel="stylesheet" type="text/css" href="fullview.css" />
