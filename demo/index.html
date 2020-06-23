@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Full View | Demo</title>
+    <link rel="stylesheet" href="../src/fullview.css">
+
+    <style>
+        #fullview>div {
+            background-color: azure;
+            padding: 200px 0;
+        }
+
+        #fullview>div:nth-child(even) {
+            background-color: #282c34;
+            color: #ffffff;
+        }
+
+        #fullview h2 {
+            margin: auto;
+            width: 50%;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="fullview">
+        <div>
+            <h2>Section 1</h2>
+        </div>
+        <div>
+            <h2>Section 2</h2>
+        </div>
+        <div>
+            <h2>Section 3</h2>
+        </div>
+        <div>
+            <h2>Section 4</h2>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="../src/fullview.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            // $(".fv").fullScreen()
+            $("#fullview").fullView({
+                //Navigation
+                dots: true,
+                dotsPosition: 'right',
+
+                //Scrolling
+                easing: 'swing',
+
+                // Callback
+                onViewChange: function (currentView) {
+                    // console.log(currentView)
+                }
+            })
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>
