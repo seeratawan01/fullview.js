@@ -1,16 +1,11 @@
-/*
-    The semi-colon before the function invocation is a safety net against
-    concatenated scripts and/or other plugins which may not be closed properly.
-
-    "undefined" is used because the undefined global variable in ECMAScript 3
-    is mutable (ie. it can be changed by someone else). Because we don't pass a
-    value to undefined when the anonymyous function is invoked, we ensure that
-    undefined is truly undefined. Note, in ECMAScript 5 undefined can no
-    longer be modified.
-
-    "window" and "document" are passed as local variables rather than global.
-    This (slightly) quickens the resolution process.
-*/
+/*!
+ * fullView 1.0
+ * https://github.com/seeratawan01/fullview.js
+ *
+ * @license GPLv3 for open source use only
+ *
+ * Copyright (C) 2020 https://github.com/seeratawan01/fullview.js/blob/master/LICENSE
+ */
 ; (function ($, window, document, undefined) {
 
     var fullView = 'fullViewJS';
