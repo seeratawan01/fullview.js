@@ -10,7 +10,7 @@ Create full screen pages fast and simple - A simple and easy to use library that
 
 [![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/fullview.js?label=fullView.js%20Version%20)](https://github.com/seeratawan01/fullview.js) [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 
-[Demo online](http://seeratawan.goprogs.com/fullView/) | [Codepen](https://codepen.io/alvarotrigo/pen/NxyPPp)
+[Demo online](http://seeratawan.goprogs.com/fullView/) | [Codepen](https://codepen.io/someone1218/pen/jOWmppP)
 
 ---
 ## Get Started
