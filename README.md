@@ -1,7 +1,7 @@
 
 # FullView.Js
 #### Javascript | JQuery Plugin 
-
+![preview](https://raw.githubusercontent.com/seeratawan01/fullview.js/master/demo/thumbnail.png)
 Create full screen pages fast and simple - A simple and easy to use library that creates fullscreen scrolling websites.
 
 #### Compatibility
