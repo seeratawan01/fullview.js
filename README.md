@@ -78,7 +78,7 @@ $("#fullview").fullView({
 ## Options
 |Option|Type|Default|Values|
 |--|--|--|--|
-|`dot`|*boolean*|true|true or false|
+|`dots`|*boolean*|true|true or false|
 |`dotsPosition`|*string*|"right"|right or left|
 |`easing`|*string*|"linear"|swing or linear|
 

@@ -16,8 +16,14 @@
 
         this.options = $.extend({}, this._defaults, options);
 
-        this.views = views.children();
+        this.views = $(views).children();
         this._name = fullView;
+
+        this.$currentView = 0;
+        this.$isScrolling = false;
+        this.offsets = [];
+        this.$dotsElement = null;
+        this.ts = null;
 
         this.init();
     }
@@ -48,11 +54,7 @@
             this.$htmlBody = $("html, body");
 
             this.$views = $(this.views);
-            this.$currentView;
-            this.$isScrolling;
-            this.offsets = [];
-            this.$dotsElement = null;
-            this.ts;
+
         },
 
         Utilites: function () {
@@ -229,15 +231,15 @@
             });
 
             // On Touch Devices
-            plugin.$document.bind('touchstart' + '.' + plugin._name, function (e) {
+            plugin.$views.bind('touchstart' + '.' + plugin._name, function (e) {
                 plugin.ts = e.originalEvent.touches[0].clientY;
             });
 
-            plugin.$document.bind('touchend' + '.' + plugin._name, function (e) {
+            plugin.$views.bind('touchend' + '.' + plugin._name, function (e) {
                 var te = e.originalEvent.changedTouches[0].clientY;
-                if (plugin.ts > te) {
+                if (plugin.ts > te + 5) {
                     plugin.scrollDown();
-                } else {
+                } else if (plugin.ts < te - 5) {
                     plugin.scrollUp();
                 }
             });
@@ -248,6 +250,7 @@
         unbindEvents: function () {
             this.$window.off('.' + this._name);
             this.$document.off('.' + this._name);
+            this.$views.off('.' + this._name);
         },
 
 
@@ -264,18 +267,25 @@
 
     $.fn.fullView = function (options) {
 
-        if (!$.data(this, "plugin_" + fullView)) {
-            $.data(this, "plugin_" + fullView, new FullView(this, options));
+        if (options === undefined || typeof options === 'object') {
+            return this.each(function () {
+                if (!$.data(this, "plugin_" + fullView)) {
+                    $.data(this, "plugin_" + fullView, new FullView(this, options));
+                }
+            })
         }
 
         return this;
     };
 
     $.fn.fullView.defaults = {
+        //Navigation
         dots: true,
         dotsPosition: 'right',
-        easing: 'swing',
+        //Scrolling
+        easing: 'linear',
 
+        // Callback
         onViewChange: null
     };
 
