@@ -15,14 +15,16 @@
         this._defaults = $.fn.fullView.defaults;
 
         this.options = $.extend({}, this._defaults, options);
-
+        this.mainView = $(views);
         this.views = $(views).children();
+
         this._name = fullView;
 
-        this.$currentView = 0;
-        this.$isScrolling = false;
+        this.currentView = 0;
+        this.isScrolling = false;
         this.offsets = [];
         this.$dotsElement = null;
+        this.$navbar = null;
         this.ts = null;
 
         this.init();
@@ -35,7 +37,7 @@
         init: function () {
 
             this.buildCache();
-            this.Utilites();
+            this.utilites();
             this.settingUp();
             this.bindEvents();
         },
@@ -55,9 +57,16 @@
 
             this.$views = $(this.views);
 
+            if (this.options.navbar !== undefined && typeof this.options.navbar === 'string') {
+
+                if ($(this.options.navbar).length) {
+                    this.$navbar = $(this.options.navbar)
+                }
+            }
+
         },
 
-        Utilites: function () {
+        utilites: function () {
             this.createDots = function createDots() {
                 var $dots = $("#fv-dots");
                 if ($dots.length) {
@@ -91,28 +100,41 @@
 
                 this.$htmlBody.stop(true).animate(
                     {
-                        scrollTop: this.offsets[$view]
+                        scrollTop: this.offsets[$view].offset
                     }, {
                     easing: this.options.easing === 'swing' ? 'swing' : 'linear',
                     duration: 350
                 }).promise().then(function () {
                     plugin.changeActiveStatus($view);
-                    if (plugin.$isScrolling === true) {
+                    if (plugin.isScrolling === true) {
                         setTimeout(function () {
-                            plugin.$isScrolling = false;
+                            plugin.isScrolling = false;
                         }, 800);
                     }
                     plugin.callback();
                 });
+            }
 
+            this.scrollToAnchor = function scrollToAnchor($anchor) {
+
+                var plugin = this;
+
+                var seletedAnchor = plugin.offsets.filter(function (obj) {
+                    return (obj.anchor === $anchor);
+                })[0];
+
+                if (!$(':animated').length && !plugin.isScrolling) {
+                    plugin.currentView = seletedAnchor.position;
+                    plugin.scrollTo(plugin.currentView);
+                }
 
             }
 
             this.scrollByWheel = function scrollByWheel(event) {
 
                 // Check if Already scrolling
-                if (!$(':animated').length && !this.$isScrolling) {
-                    this.$isScrolling = true;
+                if (!$(':animated').length && !this.isScrolling) {
+                    this.isScrolling = true;
                     if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
                         // scroll up
                         this.scrollUp();
@@ -125,23 +147,27 @@
             }
 
             this.scrollDown = function scrollDown() {
-                if (this.$currentView < this.$views.length - 1) {
-                    this.$currentView++;
-                    this.scrollTo(this.$currentView);
+                if (this.currentView < this.$views.length - 1) {
+                    this.currentView++;
+                    this.scrollTo(this.currentView);
                 }
-                else if (this.$currentView === this.$views.length - 1) {
-                    this.$isScrolling = false;
+                else if (this.currentView === this.$views.length - 1) {
+                    this.isScrolling = false;
+                    if (this.options.backToTop) {
+                        this.currentView = 0;
+                        this.scrollTo(this.currentView);
+                    }
                 }
                 return this;
             }
 
             this.scrollUp = function scrollUp() {
 
-                if (this.$currentView > 0) {
-                    this.$currentView--;
-                    this.scrollTo(this.$currentView);
-                } else if (this.$currentView === 0) {
-                    this.$isScrolling = false;
+                if (this.currentView > 0) {
+                    this.currentView--;
+                    this.scrollTo(this.currentView);
+                } else if (this.currentView === 0) {
+                    this.isScrolling = false;
                 }
                 return this;
             }
@@ -156,8 +182,8 @@
                 height: vh,
                 width: vw
             });
-            this.$currentView = 0;
-            this.$isScrolling = false;
+            this.currentView = 0;
+            this.isScrolling = false;
             this.$views.removeClass('active');
 
             // Stick to the top 
@@ -167,9 +193,32 @@
             // Calculating Offsets
             this.offsets.splice(0, this.offsets.length)
             this.$views.each(function (i) {
+                var anchor = this.$views.eq(i).attr('id');
                 var viewOffset = this.$views.eq(i).offset().top;
-                this.offsets.push(viewOffset);
+
+                this.offsets.push({
+                    position: i,
+                    anchor: anchor,
+                    offset: viewOffset
+                })
+
             }.bind(this));
+
+            if (this.$navbar !== null) {
+
+                var seletedAnchor = this.offsets.filter(function (obj) {
+                    if (obj.anchor !== undefined) {
+
+                        return true;
+                    }
+                    return false; // skip
+                }).map(function (obj) { return ("#" + obj.anchor); });
+
+                var queryString = "a[href='" + seletedAnchor.join("'], a[href='") + "']";
+
+                this.$anchors = this.$navbar.find(queryString)
+
+            }
 
 
             if (this.options.dots) {
@@ -178,7 +227,7 @@
             }
 
             // Setting Initail Active Status
-            this.changeActiveStatus(this.$currentView);
+            this.changeActiveStatus(this.currentView);
 
         },
 
@@ -194,9 +243,8 @@
                 plugin.$dotsElement.on('click' + '.' + plugin._name, function (e) {
                     e.preventDefault();
                     if (!$(':animated').length) {
-                        plugin.$currentView = $(this).attr("data-scroll");
-                        plugin.scrollTo(plugin.$currentView);
-                        // console.log(plugin.$currentView)
+                        plugin.currentView = $(this).attr("data-scroll");
+                        plugin.scrollTo(plugin.currentView);
                     }
                 }) : "";
 
@@ -206,29 +254,30 @@
             });
 
             // On Keyboard Press
-            plugin.$document.on('keydown' + '.' + plugin._name, function (e) {
-                // Check if Already scrolling
-                if (!$(':animated').length && !plugin.$isScrolling) {
-                    var code = (e.keyCode ? e.keyCode : e.which);
-                    switch (code) {
-                        case 40: // Down key
-                            plugin.scrollDown();
-                            break;
-                        case 32: // Space Bar
-                            plugin.scrollDown();
-                            break;
-                        case 38: // Up key
-                            plugin.scrollUp();
-                            break;
-                        case 33: // Page up key
-                            plugin.scrollUp();
-                            break;
-                        case 34: // Page down key
-                            plugin.scrollDown();
-                            break;
+            plugin.options.keyboardScrolling ?
+                plugin.$document.on('keydown' + '.' + plugin._name, function (e) {
+                    // Check if Already scrolling
+                    if (!$(':animated').length && !plugin.isScrolling) {
+                        var code = (e.keyCode ? e.keyCode : e.which);
+                        switch (code) {
+                            case 40: // Down key
+                                plugin.scrollDown();
+                                break;
+                            case 32: // Space Bar
+                                plugin.scrollDown();
+                                break;
+                            case 38: // Up key
+                                plugin.scrollUp();
+                                break;
+                            case 33: // Page up key
+                                plugin.scrollUp();
+                                break;
+                            case 34: // Page down key
+                                plugin.scrollDown();
+                                break;
+                        }
                     }
-                }
-            });
+                }) : ""
 
             // On Touch Devices
             plugin.$views.bind('touchstart' + '.' + plugin._name, function (e) {
@@ -244,6 +293,17 @@
                 }
             });
 
+            plugin.$anchors !== undefined && plugin.$anchors.length > 0 ?
+                plugin.$anchors.on('click' + '.' + plugin._name, function (e) {
+                    e.preventDefault();
+
+                    var anchor = $(this).attr('href');
+
+                    if (!$(':animated').length) {
+                        plugin.scrollToAnchor(anchor.substr(1));
+                    }
+                }) : ""
+
         },
 
         // Unbind events that trigger methods
@@ -253,13 +313,12 @@
             this.$views.off('.' + this._name);
         },
 
-
         callback: function () {
             // Cache onViewChange option
             var onViewChange = this.options.onViewChange;
 
             if (typeof onViewChange === 'function') {
-                onViewChange(this.$views.eq(this.$currentView));
+                onViewChange(this.$views.eq(this.currentView));
             }
         }
 
@@ -280,10 +339,14 @@
 
     $.fn.fullView.defaults = {
         //Navigation
+        navbar: undefined,
         dots: true,
         dotsPosition: 'right',
         //Scrolling
         easing: 'linear',
+        backToTop: false,
+        // Accessibility
+        keyboardScrolling: true,
 
         // Callback
         onViewChange: null

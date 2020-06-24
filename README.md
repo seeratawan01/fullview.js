@@ -78,9 +78,13 @@ $("#fullview").fullView({
 ## Options
 |Option|Type|Default|Values|
 |--|--|--|--|
+|`navbar`|*string*|undefined|css selector|
 |`dots`|*boolean*|true|true or false|
 |`dotsPosition`|*string*|"right"|right or left|
 |`easing`|*string*|"linear"|swing or linear|
+|`backToTop`|*boolean*|false"|true or false|
+|`keyboardScrolling`|*boolean*|true"|true or false|
+|`onViewChange`|*function*|null"|callback|
 
 
 ## License
