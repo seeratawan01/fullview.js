@@ -119,21 +119,6 @@
                 });
             }
 
-            // this.scrollToAnchor = function scrollToAnchor($anchor) {
-
-            //     var plugin = this;
-
-            //     var seletedAnchor = plugin.offsets.filter(function (obj) {
-            //         return (obj.anchor === $anchor);
-            //     })[0];
-
-            //     if (!$(':animated').length && !plugin.isScrolling) {
-            //         plugin.currentView = seletedAnchor.position;
-            //         plugin.scrollTo(plugin.currentView);
-            //     }
-
-            // }
-
             this.scrollByWheel = function scrollByWheel(event) {
 
                 // Check if Already scrolling
@@ -189,11 +174,9 @@
             });
             this.currentView = 0;
             this.isScrolling = false;
-            this.$views.removeClass('active');
-
-            // Stick to the top 
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
+
 
             // Calculating Offsets
             this.offsets.splice(0, this.offsets.length)
@@ -231,10 +214,26 @@
 
             }
 
-
             if (this.options.dots) {
                 // Creating Dots
                 this.$dotsElement = this.createDots();
+            }
+
+            // Check if any view active
+            var $actview = this.$views.filter('[class="active"]');
+
+            // this.$views.removeClass('active');
+            if ($actview.length) {
+                var offset = $actview.eq(0).offset().top;
+
+                var activeData = this.offsets.filter(function (obj) {
+                    return obj.offset === offset;
+                })
+
+                this.currentView = activeData[0].position;
+
+                document.body.scrollTop = offset;
+                document.documentElement.scrollTop = offset;
             }
 
             // Setting Initail Active Status

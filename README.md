@@ -44,6 +44,7 @@ npm install fullview
 ## Usage
 ### HTML Structure
 ```html
+You optionally can add `active` class to any section for initial view
 <div id="fullview">
         <div>
             <!-- Your Code -->
