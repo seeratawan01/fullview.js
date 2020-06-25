@@ -25,7 +25,8 @@
         this.offsets = [];
         this.$dotsElement = null;
         this.$navbar = null;
-        this.ts = null;
+        this.lastY = null;
+        this.lastX = null;
 
         this.init();
     }
@@ -92,6 +93,9 @@
                 if (this.options.dots) {
                     this.$dotsElement.removeClass('active').eq($view).addClass('active')
                 }
+                if (this.$anchors.length) {
+                    this.$anchors.removeClass('active').filter('[data-scroll="' + $view + '"]').addClass('active')
+                }
             }
 
             this.scrollTo = function scrollTo($view) {
@@ -115,20 +119,20 @@
                 });
             }
 
-            this.scrollToAnchor = function scrollToAnchor($anchor) {
+            // this.scrollToAnchor = function scrollToAnchor($anchor) {
 
-                var plugin = this;
+            //     var plugin = this;
 
-                var seletedAnchor = plugin.offsets.filter(function (obj) {
-                    return (obj.anchor === $anchor);
-                })[0];
+            //     var seletedAnchor = plugin.offsets.filter(function (obj) {
+            //         return (obj.anchor === $anchor);
+            //     })[0];
 
-                if (!$(':animated').length && !plugin.isScrolling) {
-                    plugin.currentView = seletedAnchor.position;
-                    plugin.scrollTo(plugin.currentView);
-                }
+            //     if (!$(':animated').length && !plugin.isScrolling) {
+            //         plugin.currentView = seletedAnchor.position;
+            //         plugin.scrollTo(plugin.currentView);
+            //     }
 
-            }
+            // }
 
             this.scrollByWheel = function scrollByWheel(event) {
 
@@ -154,6 +158,7 @@
                 else if (this.currentView === this.$views.length - 1) {
                     this.isScrolling = false;
                     if (this.options.backToTop) {
+                        this.isScrolling = true;
                         this.currentView = 0;
                         this.scrollTo(this.currentView);
                     }
@@ -204,11 +209,16 @@
 
             }.bind(this));
 
-            if (this.$navbar !== null) {
 
+            // Setting Menu
+            if (this.$navbar !== null) {
+                var $menu = this.$navbar;
                 var seletedAnchor = this.offsets.filter(function (obj) {
                     if (obj.anchor !== undefined) {
-
+                        var $menuitem = $menu.find('a[href="#' + obj.anchor + '"]')
+                        if ($menuitem.length) {
+                            $menuitem.attr("data-scroll", obj.position)
+                        }
                         return true;
                     }
                     return false; // skip
@@ -216,6 +226,7 @@
 
                 var queryString = "a[href='" + seletedAnchor.join("'], a[href='") + "']";
 
+                // Collecting All Nav Items
                 this.$anchors = this.$navbar.find(queryString)
 
             }
@@ -247,6 +258,18 @@
                         plugin.scrollTo(plugin.currentView);
                     }
                 }) : "";
+
+            // On nav anchor click
+            plugin.$anchors !== undefined && plugin.$anchors.length > 0 ?
+                plugin.$anchors.on('click' + '.' + plugin._name, function (e) {
+                    e.preventDefault();
+
+                    if (!$(':animated').length) {
+                        plugin.currentView = $(this).attr("data-scroll");
+                        plugin.scrollTo(plugin.currentView);
+                    }
+
+                }) : ""
 
             // On MouseScroll
             plugin.$window.on('DOMMouseScroll mousewheel' + '.' + plugin._name, function (e) {
@@ -280,29 +303,31 @@
                 }) : ""
 
             // On Touch Devices
-            plugin.$views.bind('touchstart' + '.' + plugin._name, function (e) {
-                plugin.ts = e.originalEvent.touches[0].clientY;
+            plugin.$views.on('touchstart' + '.' + plugin._name, function (e) {
+                plugin.lastY = e.originalEvent.touches[0].clientY;
+                plugin.lastX = e.originalEvent.touches[0].clientX;
             });
 
-            plugin.$views.bind('touchend' + '.' + plugin._name, function (e) {
-                var te = e.originalEvent.changedTouches[0].clientY;
-                if (plugin.ts > te + 5) {
+            plugin.$views.on('touchend' + '.' + plugin._name, function (e) {
+                var currentY = e.originalEvent.changedTouches[0].clientY;
+                var currentX = e.originalEvent.changedTouches[0].clientX;
+
+                if (e.target !== e.currentTarget) return;
+
+                if (currentX < plugin.lastX) {
+                    // Left
+                    // console.log("left")
+                } else if (currentX > plugin.lastX) {
+                    // Right
+                    // console.log("right")
+                }
+
+                if (plugin.lastY > currentY + 5) {
                     plugin.scrollDown();
-                } else if (plugin.ts < te - 5) {
+                } else if (plugin.lastY < currentY - 5) {
                     plugin.scrollUp();
                 }
             });
-
-            plugin.$anchors !== undefined && plugin.$anchors.length > 0 ?
-                plugin.$anchors.on('click' + '.' + plugin._name, function (e) {
-                    e.preventDefault();
-
-                    var anchor = $(this).attr('href');
-
-                    if (!$(':animated').length) {
-                        plugin.scrollToAnchor(anchor.substr(1));
-                    }
-                }) : ""
 
         },
 
