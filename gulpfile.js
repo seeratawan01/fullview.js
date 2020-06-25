@@ -2,7 +2,10 @@ var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-clean-css');
+
 var { src, series, parallel, dest, watch } = require('gulp');
+
+var pjson = require('./package.json');
 
 var jsPath = 'src/fullview.js';
 var cssPath = 'src/fullview.css';
@@ -12,7 +15,11 @@ function jsTask() {
     return src(jsPath)
         .pipe(sourcemaps.init())
         .pipe(dest('./dist'))
-        .pipe(uglify())
+        .pipe(uglify({
+            output: {
+                comments: 'some'
+            }
+        }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('.'))
         .pipe(dest('./dist'));

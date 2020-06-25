@@ -44,7 +44,7 @@ npm install fullview
 ## Usage
 ### HTML Structure
 ```html
-You optionally can add `active` class to any section for initial view
+<!-- You optionally can add `active` class to any section for initial view -->
 <div id="fullview">
         <div>
             <!-- Your Code -->
@@ -82,9 +82,9 @@ $("#fullview").fullView({
 |--|--|--|--|
 |`navbar`|*string*|undefined|css selector|
 |`dots`|*boolean*|true|true or false|
-|`dotsPosition`|*string*|"right"|right or left|
-|`easing`|*string*|"linear|swing or linear|
-|`backToTop`|*boolean*|false"|true or false|
+|`dotsPosition`|*string*|right|right or left|
+|`easing`|*string*|linear|swing or linear|
+|`backToTop`|*boolean*|false|true or false|
 |`keyboardScrolling`|*boolean*|true|true or false|
 |`onViewChange`|*function*|null|callback|
 
