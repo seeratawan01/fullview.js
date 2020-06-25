@@ -311,7 +311,7 @@
                 var currentY = e.originalEvent.changedTouches[0].clientY;
                 var currentX = e.originalEvent.changedTouches[0].clientX;
 
-                if (e.target !== e.currentTarget) return;
+                // if (e.target !== e.currentTarget) return;
 
                 if (currentX < plugin.lastX) {
                     // Left
