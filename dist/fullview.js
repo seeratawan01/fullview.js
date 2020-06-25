@@ -1,5 +1,5 @@
 /*!
- * fullView 1.0.7
+ * fullView 1.0.8
  * https://github.com/seeratawan01/fullview.js
  *
  * @license GPLv3 for open source use only
@@ -25,6 +25,7 @@
         this.offsets = [];
         this.$dotsElement = null;
         this.$navbar = null;
+        this.$anchors = {};
         this.lastY = null;
         this.lastX = null;
 
