@@ -180,12 +180,12 @@
 
         settingUp: function () {
             var vh = this.$window.height();
-            var vw = this.$window.width();
+            // var vw = this.$window.width();
 
             // Setting Viewport
             this.$views.css({
                 height: vh,
-                width: vw
+                // width: vw
             });
             this.currentView = 0;
             this.isScrolling = false;

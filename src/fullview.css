@@ -43,7 +43,7 @@ body {
 #fullview>* {
     display: block;
     height: 100vh !important;
-    width: 100vw !important;
+    /* width: 100vw !important; */
     /* transform: translateZ(0) rotateZ(360deg); */
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
