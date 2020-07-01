@@ -14,7 +14,8 @@ Also comes with a side navigation dots, containing anchor links that allow the v
 | ------------ | ----------- | ----- | ----- | ------ | ------- |
 ---
 
-[![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/fullview.js?label=fullView.js%20Version%20)](https://github.com/seeratawan01/fullview.js) [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/fullview.js?label=fullView.js%20Version%20)](https://github.com/seeratawan01/fullview.js) [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://www.gnu.org/licenses/gpl-3.0.html) [![License](https://img.shields.io/npm/dw/fullview)](https://www.npmjs.com/package/fullview) [![License](https://img.shields.io/bundlephobia/min/fullview?color=yellow&label=File%20Size)](https://www.npmjs.com/package/fullview)
+
 
 [Demo online](http://seeratawan.goprogs.com/fullView/) | [Codepen](https://codepen.io/someone1218/pen/ZEQyRLM) | [Tutorial](https://medium.com/@seeratsdsking/how-to-build-a-full-screen-scrolling-website-12113bb98088)
 
@@ -116,7 +117,7 @@ $("#fullview").fullView({
 Check out the complete working [Menu Example](https://codepen.io/someone1218/pen/jOWmppP)
 
 ### Attributes added by fullview.js
-fullView.js adds few attibutes including clasees and HTML5 `data` attribute in different elements to keep a record of the status of the webpage:
+fullView.js adds few attibutes including classes and HTML5 `data` attribute in different elements to keep a record of the status of the webpage:
 -   `active` is added the current visible section.
 -   `active` is added to the current navbar element (if using the `navbar` option).
 -  `data-scroll` attribute is added to the menu items and dots
