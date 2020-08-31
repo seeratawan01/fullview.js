@@ -1,6 +1,6 @@
 {
   "name": "fullview",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Create fullscreen scrolling websites",
   "main": "dist/fullview.js",
   "authors": [
