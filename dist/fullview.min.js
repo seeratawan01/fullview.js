@@ -1,5 +1,5 @@
 /*!
- * fullView 1.0.8
+ * fullView 1.0.9
  * https://github.com/seeratawan01/fullview.js
  *
  * @license GPLv3 for open source use only
