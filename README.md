@@ -14,7 +14,7 @@ Also comes with a side navigation dots, containing anchor links that allow the v
 | ------------ | ----------- | ----- | ----- | ------ | ------- |
 ---
 
-[![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/fullview.js?label=fullView.js%20Version%20)](https://github.com/seeratawan01/fullview.js) [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://www.gnu.org/licenses/gpl-3.0.html) [![License](https://img.shields.io/npm/dw/fullview)](https://www.npmjs.com/package/fullview) [![License](https://img.shields.io/bundlephobia/min/fullview?color=yellow&label=File%20Size)](https://www.npmjs.com/package/fullview)
+[![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/fullview.js?label=fullView.js%20Version%20)](https://github.com/seeratawan01/fullview.js) [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://www.gnu.org/licenses/gpl-3.0.html) [![License](https://img.shields.io/npm/dt/fullview?color=orange&label=total%20downloads)](https://www.npmjs.com/package/fullview) [![License](https://img.shields.io/npm/dm/fullview)](https://www.npmjs.com/package/fullview)  [![License](https://img.shields.io/bundlephobia/min/fullview?color=yellow&label=File%20Size)](https://www.npmjs.com/package/fullview)
 
 
 [Demo online](http://seeratawan.goprogs.com/fullView/) | [Codepen](https://codepen.io/someone1218/pen/ZEQyRLM) | [Tutorial](https://medium.com/@seeratsdsking/how-to-build-a-full-screen-scrolling-website-12113bb98088)
@@ -38,10 +38,10 @@ All you will need to include:
 ### Using CDNS
 **Optionally**, If you prefer to use a CDN to load the needed files,
 ```bash
-https://unpkg.com/fullview/dist/fullview.min.css
+https://cdn.jsdelivr.net/npm/fullview/dist/fullview.min.css
 ```
 ```bash
-https://unpkg.com/fullview/dist/fullview.min.js
+https://cdn.jsdelivr.net/npm/fullview/dist/fullview.min.js
 ```
 ### Using NPM
 **Optionally**, you can install fullView.js with npm
@@ -73,6 +73,7 @@ $("#fullview").fullView({
 	//Options
 	dots:  true,
 	dotsPosition:  'right',
+	// Read Docs for more options details
 
 	// Callback
 	onViewChange:  function (currentView) {
@@ -131,9 +132,11 @@ fullView.js adds few attibutes including classes and HTML5 `data` attribute in d
 |`easing`|*string*|linear|swing or linear|Defines the transition effect
 |`backToTop`|*boolean*|false|true or false|Defines whether scrolling down in the last section should scroll to the start one or not.
 |`keyboardScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the keyboard
+|`mouseScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the mouse
+|`touchScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the touch
 |`onViewChange`|*function*|null|callback|This callback return the element of current section on every section change
 
 
-## License
+## Open Source License
 
 If you are creating an open source application under a license compatible with the [GNU GPL license v3](https://www.gnu.org/licenses/gpl-3.0.html), you may use it under the terms of the GPLv3.
