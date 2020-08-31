@@ -2,128 +2,171 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Full View | Demo</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FullView | Build full-screen full page Scrolling websites</title>
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="keywords" content="jquery-plugin, ecosystem:jquery, jquery, javascript, scrolling, smooth,
+        single_page, onepage, fullpage, fullview, one_page, sliding, scroll, swipe, mousewheel, sections" />
+    <meta name="description"
+        content="Create Amazing full-screen full page Scrolling websites fast and easy - A simple and easy to use library." />
+
+    <!-- FullView Plugin StyleSheet -->
     <link rel="stylesheet" href="../dist/fullview.min.css">
 
-    <style>
-        #fullview>div {
-            background-color: azure;
-            padding: 200px 0;
-        }
+    <!-- Custom StyleSheet -->
+    <link rel="stylesheet" href="./theme.css">
 
-        #fullview>div:nth-child(even) {
-            background-color: #282c34;
-            color: #ffffff;
-        }
-
-        #fullview h2 {
-            margin: auto;
-            width: 50%;
-            text-align: center;
-        }
-
-        #navbar {
-            position: fixed;
-            width: 100%;
-            padding: 20px;
-        }
-
-        #navbar ul {
-            list-style: none;
-            text-align: center;
-        }
-
-        #navbar li {
-            display: inline-block;
-            padding: 5px;
-            background-color: #ffffff;
-            border: 1px solid gray;
-            border-radius: 5px;
-        }
-
-        #navbar li a {
-            text-decoration: none;
-            color: black;
-        }
-
-        #navbar li a.active {
-            font-weight: 600;
-        }
-    </style>
+    <!--[if lt IE 9]>
+        <script src="./js/respond.js"></script>
+        <script src="./js/html5shiv-printshiv.js"></script>
+        <script src="./js/html5media.min.js"></script>
+    <![endif]-->
 
 </head>
 
 <body>
-
-    <div id="navbar">
-        <ul>
-            <li><a href="#section1">
-                    Section 1
-                </a>
-            </li>
-            <li><a href="#section2">
-                    Section 2
-                </a>
-            </li>
-            <li><a href="#section4">
-                    Section 4
-                </a>
-            </li>
-            <li><a href="#anytag">
-                    Unknown
-                </a>
-            </li>
-        </ul>
+    <div class="header">
+        <div class="main-container">
+            <div class="header-content">
+                <div class="brand"><a title="Seerat Awan" target="_blank"
+                        href="https://github.com/seeratawan01/fullview.js">Seerat
+                        Awan</a></div>
+                <div id="navbar">
+                    <div class="nav-item">
+                        <a title="Download" href="https://github.com/seeratawan01/fullview.js/archive/master.zip"
+                            target="_blank">Download</a>
+                    </div>
+                    <div class="nav-item">
+                        <a title="Usage" href="#usage">Usage</a>
+                    </div>
+                    <div class="nav-item">
+                        <a title="Get Started" href="#started">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="fullview">
-        <div id="section1">
-            <h2>Section 1</h2>
+        <div id="hero" class="nav-transparent">
+            <div class="main-container">
+                <div class="hero-content">
+                    <div class="hero-heading">
+                        <h1>FullView.js</h1>
+                        <h4>Build Amazing full-screen Scrolling websites.</h4>
+                    </div>
+                    <div class="hero-buttons">
+                        <a title="Download" class="btn" target="_blank"
+                            href="https://github.com/seeratawan01/fullview.js/archive/master.zip">Download</a>
+                        <a title="Github" class="btn" target="_blank"
+                            href="https://github.com/seeratawan01/fullview.js">View On
+                            Github</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="section2" class="active">
-            <h2>Section 2</h2>
+
+        <div id="more" class="nav-transparent">
+            <div class="main-container">
+                <div class="section-box">
+                    <div class="section-content">
+                        <h2>What is FullView.js</h2>
+                        <h4>"fullView.js" is a simple, light-weighted and easy to use JavaScript library to create
+                            full-screen scrolling websites.
+                        </h4>
+                        <p>Its enables the visitor to navigate through pages with a smooth full-screen scroll effect.
+                            Supports keyboard, mouse wheel on desktop, and swipe up/down/left/right events on mobile
+                            phones, tablets and touch screen computers..
+                            It is fully functional on all modern browsers, as well as some old ones such as Internet
+                            Explorer 9, Opera 12, etc.</p>
+                        <div>
+                            <a class="btn btn-main" target="_blank" href="https://github.com/seeratawan01/fullview.js"
+                                title="Documentation">Official Documentation</a>
+                            <a class="btn btn-sec" target="_blank"
+                                href="https://github.com/seeratawan01/fullview.js/issues">Report Issue</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="section3">
-            <h2>Section 3</h2>
+
+        <div id="started">
+            <div class="main-container">
+                <div class="section-box">
+                    <div class="section-content">
+                        <h2>Get Started</h2>
+                        <h4>Download the "fullView.js" and Include the files into your HTML, and you are ready to go!
+                        </h4>
+                    </div>
+
+                    <div class="row">
+                        <div class="column-large-6">
+                            <pre
+                                class="html"><code><span class="code-tag">&#x3C;link <span class="code-attr">rel=&#x22;stylesheet&#x22; type=&#x22;text/css&#x22; href=&#x22;fullview.css&#x22;</span> /&#x3E;<br><span class="code-text">&#x3C;!-- Javascript Files --&#x3E;</span><br>&#x3C;script  <span class="code-attr">src=&#x22;https://code.jquery.com/jquery-3.5.1.min.js&#x22;  crossorigin=&#x22;anonymous&#x22;</span>&#x3E;&#x3C;/script&#x3E;<br>&#x3C;script <span class="code-attr">type=&#x22;text/javascript&#x22; src=&#x22;fullview.js&#x22;</span>&#x3E;&#x3C;/script&#x3E;</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        <h4>Read Out the <a title="Docs" target="_blank"
+                                href="https://github.com/seeratawan01/fullview.js">Documentation</a> - for more ways to
+                            initialize the plugin</h4>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="section4">
-            <h2>Section 4</h2>
+
+        <div id="usage">
+            <div class="main-container">
+                <div class="section-box">
+                    <div class="section-content">
+                        <h2>Usage</h2>
+                        <h4>fullView.js is Easy and Fast to work with, Use the following Code Structure</h4>
+                    </div>
+
+                    <div class="row">
+                        <div class="column-large-3">
+                            <pre
+                                class="html"><code><span class="code-tag">&#x3C;div <span class="code-attr">id=&#x22;fullview&#x22;</span>&#x3E;</span> <br>&nbsp;&nbsp;&nbsp;<span class="code-tag">&#x3C;div <span class="code-attr">class=&#x22;section&#x22;</span>&#x3E;<span class="code-text">Section 1</span>&#x3C;/div&#x3E;</span> <br>&nbsp;&nbsp;&nbsp;<span class="code-tag">&#x3C;div <span class="code-attr">class=&#x22;section&#x22;</span>&#x3E;<span class="code-text">Section 2</span>&#x3C;/div&#x3E;</span> <br>&nbsp;&nbsp;&nbsp;<span class="code-tag">&#x3C;div <span class="code-attr">class=&#x22;section&#x22;</span>&#x3E;<span class="code-text">Section 3</span>&#x3C;/div&#x3E;</span>  <br><span class="code-tag">&#x3C;/div&#x3E;</span></code></pre>
+                        </div>
+                        <div class="column-large-3">
+                            <pre
+                                class="js"><code><span class="code-tag">$(<span class="code-attr">&#x22;#fullview&#x22;</span>).fullView(<span class="code-attr">{<span class="code-text"><br>&#x9;dots:  true,<br>&#x9;dotsPosition:  &#x27;right&#x27;,<br>&#x9;easing:  &#x27;swing&#x27;,<br></span>}</span>);</span></code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 
+
+    <!-- JQuery Library -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+
+    <!-- FullView Plugin -->
     <script src="../dist/fullview.min.js"></script>
-
     <script>
-
         $(document).ready(function () {
 
             $("#fullview").fullView({
                 //Navigation
                 navbar: "#navbar",
-                dots: true,
-                dotsPosition: 'right',
-
-                //Scrolling
-                easing: 'swing',
                 backToTop: true,
-
-                // Accessibility
-                keyboardScrolling: true,
 
                 // Callback
                 onViewChange: function (currentView) {
-                    // console.log(currentView)
+                    if (!currentView.hasClass('nav-transparent')) {
+                        $('.header').addClass('changed');
+                    } else {
+                        $('.header').removeClass('changed');
+                    }
                 }
             })
 
         });
-
-
     </script>
+
 
 </body>
 
