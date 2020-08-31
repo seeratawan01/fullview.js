@@ -8,7 +8,7 @@
   ],
   "namespace": "fullViewJS",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "develop": "gulp watch"
   },
   "repository": {
     "type": "git",

@@ -8,10 +8,11 @@
  */
 ; (function ($, window, document, undefined) {
 
-    var fullView = 'fullViewJS';
+    var fullView = 'fullView';
 
     // Create the plugin constructor
     function FullView(views, options) {
+
         this._defaults = $.fn.fullView.defaults;
 
         this.options = $.extend({}, this._defaults, options);
@@ -30,6 +31,8 @@
         this.lastX = null;
 
         this.init();
+
+
     }
 
     // Avoid FullView.prototype conflicts
@@ -103,21 +106,29 @@
 
                 var plugin = this;
 
-                this.$htmlBody.stop(true).animate(
-                    {
-                        scrollTop: this.offsets[$view].offset
-                    }, {
-                    easing: this.options.easing === 'swing' ? 'swing' : 'linear',
-                    duration: 350
-                }).promise().then(function () {
-                    plugin.changeActiveStatus($view);
-                    if (plugin.isScrolling === true) {
-                        setTimeout(function () {
-                            plugin.isScrolling = false;
-                        }, 800);
-                    }
-                    plugin.callback();
-                });
+                $view = parseInt($view);
+
+                if (this.offsets[$view] !== undefined && typeof $view === 'number') {
+                    this.currentView = $view;
+                    this.$htmlBody.stop(true).animate(
+                        {
+                            scrollTop: this.offsets[$view].offset
+                        }, {
+                        easing: this.options.easing === 'swing' ? 'swing' : 'linear',
+                        duration: 350
+                    }).promise().then(function () {
+                        plugin.changeActiveStatus($view);
+                        if (plugin.isScrolling === true) {
+                            setTimeout(function () {
+                                plugin.isScrolling = false;
+                            }, 800);
+                        }
+                        plugin.callback();
+                    });
+                } else {
+                    console.warn("The View You Want To Scroll To Does not Exist!")
+                }
+
             }
 
             this.scrollByWheel = function scrollByWheel(event) {
@@ -215,8 +226,8 @@
 
             }
 
+            // Creating Dots
             if (this.options.dots) {
-                // Creating Dots
                 this.$dotsElement = this.createDots();
             }
 
@@ -237,6 +248,11 @@
                 document.documentElement.scrollTop = offset;
             }
 
+            // If AutoPlay
+            if (this.options.dots) {
+                this.$dotsElement = this.createDots();
+            }
+
             // Setting Initail Active Status
             this.changeActiveStatus(this.currentView);
 
@@ -255,7 +271,7 @@
                     e.preventDefault();
                     if (!$(':animated').length) {
                         plugin.currentView = $(this).attr("data-scroll");
-                        plugin.scrollTo(plugin.currentView);
+                        plugin.scrollTo(parseInt(plugin.currentView));
                     }
                 }) : "";
 
@@ -266,19 +282,30 @@
 
                     if (!$(':animated').length) {
                         plugin.currentView = $(this).attr("data-scroll");
-                        plugin.scrollTo(plugin.currentView);
+                        plugin.scrollTo(parseInt(plugin.currentView));
                     }
 
                 }) : ""
 
             // On MouseScroll
-            plugin.$window.on('DOMMouseScroll mousewheel' + '.' + plugin._name, function (e) {
-                plugin.scrollByWheel(e);
-            });
+            plugin.options.mouseScrolling ?
+                plugin.$window.on('DOMMouseScroll mousewheel' + '.' + plugin._name, function (event) {
+                    var e = event || window.event,
+                        target = e.target || e.srcElement;
+
+                    if (target.tagName.toUpperCase() == 'INPUT') return;
+                    plugin.scrollByWheel(e);
+                }) : ""
 
             // On Keyboard Press
             plugin.options.keyboardScrolling ?
-                plugin.$document.on('keydown' + '.' + plugin._name, function (e) {
+                plugin.$document.on('keydown' + '.' + plugin._name, function (event) {
+
+                    var e = event || window.event,
+                        target = e.target || e.srcElement;
+
+                    if (target.tagName.toUpperCase() == 'INPUT') return;
+
                     // Check if Already scrolling
                     if (!$(':animated').length && !plugin.isScrolling) {
                         var code = (e.keyCode ? e.keyCode : e.which);
@@ -286,9 +313,9 @@
                             case 40: // Down key
                                 plugin.scrollDown();
                                 break;
-                            case 32: // Space Bar
-                                plugin.scrollDown();
-                                break;
+                            // case 32: // Space Bar
+                            //     plugin.scrollDown();
+                            //     break;
                             case 38: // Up key
                                 plugin.scrollUp();
                                 break;
@@ -308,26 +335,31 @@
                 plugin.lastX = e.originalEvent.touches[0].clientX;
             });
 
-            plugin.$views.on('touchend' + '.' + plugin._name, function (e) {
-                var currentY = e.originalEvent.changedTouches[0].clientY;
-                var currentX = e.originalEvent.changedTouches[0].clientX;
+            plugin.options.touchScrolling ?
+                plugin.$views.on('touchend' + '.' + plugin._name, function (event) {
+                    // if (e.target !== e.currentTarget) return;
 
-                // if (e.target !== e.currentTarget) return;
+                    var e = event || window.event,
+                        target = e.target || e.srcElement;
+                    if (target.tagName.toUpperCase() == 'INPUT') return;
 
-                if (currentX < plugin.lastX) {
-                    // Left
-                    // console.log("left")
-                } else if (currentX > plugin.lastX) {
-                    // Right
-                    // console.log("right")
-                }
+                    var currentY = e.originalEvent.changedTouches[0].clientY;
+                    var currentX = e.originalEvent.changedTouches[0].clientX;
 
-                if (plugin.lastY > currentY + 5) {
-                    plugin.scrollDown();
-                } else if (plugin.lastY < currentY - 5) {
-                    plugin.scrollUp();
-                }
-            });
+                    if (currentX < plugin.lastX) {
+                        // Left
+                        // console.log("left")
+                    } else if (currentX > plugin.lastX) {
+                        // Right
+                        // console.log("right")
+                    }
+
+                    if (plugin.lastY > currentY + 25) {
+                        plugin.scrollDown();
+                    } else if (plugin.lastY < currentY - 25) {
+                        plugin.scrollUp();
+                    }
+                }) : ""
 
         },
 
@@ -352,9 +384,11 @@
     $.fn.fullView = function (options) {
 
         if (options === undefined || typeof options === 'object') {
+
             return this.each(function () {
-                if (!$.data(this, "plugin_" + fullView)) {
-                    $.data(this, "plugin_" + fullView, new FullView(this, options));
+
+                if (!$.data(this, fullView)) {
+                    $.data(this, fullView, new FullView(this, options));
                 }
             })
         }
@@ -372,9 +406,13 @@
         backToTop: false,
         // Accessibility
         keyboardScrolling: true,
+        mouseScrolling: true,
+        touchScrolling: true,
+
+        // AutoPlay
 
         // Callback
-        onViewChange: null
+        onViewChange: null,
     };
 
 })(jQuery, window, document);

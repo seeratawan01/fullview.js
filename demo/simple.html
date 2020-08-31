@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Full View | Demo</title>
+    <link rel="stylesheet" href="../dist/fullview.min.css">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            background: #ececec;
+        }
+
+        #fullview>div {
+            background-color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.688rem;
+            flex-direction: column;
+            padding: 25px;
+        }
+
+        #fullview>div:nth-child(even) {
+            background-color: #282c34;
+            color: #ffffff;
+        }
+
+        #fullview h2 {
+            margin: auto;
+            width: 50%;
+            text-align: center;
+        }
+
+        #navbar {
+            position: fixed;
+            width: 100%;
+            padding: 20px;
+        }
+
+        #navbar ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        #navbar li,
+        button {
+            display: inline-block;
+            padding: 8px 17px;
+            background-color: #ffffff;
+            box-shadow: 5px 10px #888888;
+            border: 1px solid transparent;
+            margin-right: 12px;
+            margin-bottom: 12px;
+
+        }
+
+        button {
+            cursor: pointer;
+            margin-right: 0;
+            margin-bottom: 0;
+        }
+
+        select,
+        input {
+            display: inline-block;
+            padding: 8px 17px;
+            background-color: #ffffff;
+            box-shadow: 0px 2px 9px #888;
+            border: 1px solid transparent;
+        }
+
+        #navbar li:last-of-type {
+            margin-right: 0;
+        }
+
+        #navbar li a {
+            text-decoration: none;
+            color: #282c34;
+        }
+
+        #navbar li a.active {
+            font-weight: 600;
+        }
+
+        #down {
+            box-shadow: 0px 2px 9px #888;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        /* Override Styles */
+        #fv-dots ul li a span {
+            background-color: #888888;
+            border-radius: 0;
+            transition: all 0.5s ease;
+        }
+
+        #fv-dots ul a.active span {
+            width: 11px;
+            height: 11px;
+            transform: rotate(45deg);
+            background-color: #bdbdbd;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="navbar">
+        <ul>
+            <li><a href="#section1">
+                    Section 1
+                </a>
+            </li>
+            <li><a href="#section2">
+                    Section 2
+                </a>
+            </li>
+            <li><a href="#section4">
+                    Section 4
+                </a>
+            </li>
+            <li><a href="https://github.com/seeratawan01/fullview.js" target="_blank">
+                    External Link
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="fullview">
+        <div id="section1" class="active">
+            <h2>Section 1</h2>
+            <button title="Down" id="down"><span>Click Here</span></button>
+        </div>
+        <div id="section2">
+            <h2>Section 2</h2>
+            <div class="form">
+                <form>
+                    <label for="select">Choose Section To Scroll</label>
+                    <select name="section" id="select">
+                        <option value="0">Section: 1</option>
+                        <option value="1">Section: 2</option>
+                        <option value="2">Section: 3</option>
+                        <option value="3">Section: 4</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div id="section3">
+            <h2>Section 3</h2>
+        </div>
+        <div id="section4">
+            <h2>Section 4</h2>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="../dist/fullview.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var fv = $("#fullview").fullView({
+                //Navigation
+                navbar: "#navbar",
+                dots: true,
+                dotsPosition: 'right',
+
+                //Scrolling
+                easing: 'swing',
+                backToTop: true,
+
+                // Accessibility
+                keyboardScrolling: true,
+
+                // Callback
+                onViewChange: function (currentView) {
+                    // console.log(currentView)
+                }
+            });
+
+            $("#down").click(function () {
+                // To Scroll Down 1 Section
+                fv.data('fullView').scrollDown();
+
+                // To Scroll Up 1 Section
+                // fv.data('fullView').scrollDown();
+            });
+
+            $("#select").change(function () {
+                // To Scroll to Specfic Section
+                fv.data('fullView').scrollTo($(this).val());
+            });
+
+        }); 
+    </script>
+
+</body>
+
+</html>
