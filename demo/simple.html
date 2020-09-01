@@ -191,8 +191,9 @@
                 keyboardScrolling: true,
 
                 // Callback
-                onViewChange: function (currentView) {
-                    // console.log(currentView)
+                onViewChange: function (currentView, preView) {
+                    console.log("Current", currentView)
+                    console.log("Previus", preView)
                 }
             });
 

@@ -22,6 +22,7 @@
         this._name = fullView;
 
         this.currentView = 0;
+        this.previousView = 0;
         this.isScrolling = false;
         this.offsets = [];
         this.$dotsElement = null;
@@ -109,6 +110,7 @@
                 $view = parseInt($view);
 
                 if (this.offsets[$view] !== undefined && typeof $view === 'number') {
+                    this.previousView = this.currentView === $view ? this.previousView : this.currentView;
                     this.currentView = $view;
                     this.$htmlBody.stop(true).animate(
                         {
@@ -149,6 +151,7 @@
 
             this.scrollDown = function scrollDown() {
                 if (this.currentView < this.$views.length - 1) {
+                    this.previousView = this.currentView;
                     this.currentView++;
                     this.scrollTo(this.currentView);
                 }
@@ -156,6 +159,7 @@
                     this.isScrolling = false;
                     if (this.options.backToTop) {
                         this.isScrolling = true;
+                        this.previousView = this.currentView;
                         this.currentView = 0;
                         this.scrollTo(this.currentView);
                     }
@@ -166,6 +170,7 @@
             this.scrollUp = function scrollUp() {
 
                 if (this.currentView > 0) {
+                    this.previousView = this.currentView;
                     this.currentView--;
                     this.scrollTo(this.currentView);
                 } else if (this.currentView === 0) {
@@ -243,6 +248,7 @@
                 })
 
                 this.currentView = activeData[0].position;
+                this.previousView = this.currentView;
 
                 document.body.scrollTop = offset;
                 document.documentElement.scrollTop = offset;
@@ -270,8 +276,9 @@
                 plugin.$dotsElement.on('click' + '.' + plugin._name, function (e) {
                     e.preventDefault();
                     if (!$(':animated').length) {
-                        plugin.currentView = $(this).attr("data-scroll");
-                        plugin.scrollTo(parseInt(plugin.currentView));
+                        plugin.previousView = plugin.currentView;
+                        plugin.currentView = parseInt($(this).attr("data-scroll"));
+                        plugin.scrollTo(plugin.currentView);
                     }
                 }) : "";
 
@@ -281,8 +288,9 @@
                     e.preventDefault();
 
                     if (!$(':animated').length) {
-                        plugin.currentView = $(this).attr("data-scroll");
-                        plugin.scrollTo(parseInt(plugin.currentView));
+                        plugin.previousView = plugin.currentView;
+                        plugin.currentView = parseInt($(this).attr("data-scroll"));
+                        plugin.scrollTo(plugin.currentView);
                     }
 
                 }) : ""
@@ -375,8 +383,11 @@
             var onViewChange = this.options.onViewChange;
 
             if (typeof onViewChange === 'function') {
-                onViewChange(this.$views.eq(this.currentView));
+
+                // Current, Pre
+                onViewChange(this.$views.eq(this.currentView), this.$views.eq(this.previousView));
             }
+
         }
 
     });

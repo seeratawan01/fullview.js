@@ -17,7 +17,7 @@ Also comes with a side navigation dots, containing anchor links that allow the v
 [![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/fullview.js?label=fullView.js%20Version%20)](https://github.com/seeratawan01/fullview.js) [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://www.gnu.org/licenses/gpl-3.0.html) [![License](https://img.shields.io/npm/dt/fullview?color=orange&label=total%20downloads)](https://www.npmjs.com/package/fullview) [![License](https://img.shields.io/npm/dm/fullview)](https://www.npmjs.com/package/fullview)  [![License](https://img.shields.io/bundlephobia/min/fullview?color=yellow&label=File%20Size)](https://www.npmjs.com/package/fullview)
 
 
-[Demo online](http://seeratawan.goprogs.com/fullView/) | [Codepen](https://codepen.io/someone1218/pen/ZEQyRLM) | [Tutorial](https://medium.com/@seeratsdsking/how-to-build-a-full-screen-scrolling-website-12113bb98088)
+[Demo online](http://seeratawan.goprogs.com/fullView/) | [Codepen](https://codepen.io/collection/nebMLL) | [Tutorial](https://medium.com/@seeratsdsking/how-to-build-a-full-screen-scrolling-website-12113bb98088)
 
 ---
 ## Get Started
@@ -76,8 +76,9 @@ $("#fullview").fullView({
 	// Read Docs for more options details
 
 	// Callback
-	onViewChange:  function (currentView) {
-	     console.log(currentView)
+	onViewChange:  function (currentView, previousView) {
+	       console.log("Current", currentView);
+          console.log("Previus", previousView);
 	}
 })
 ```
@@ -115,7 +116,7 @@ $("#fullview").fullView({
 	navbar:  "#navbar",
 })
 ```
-Check out the complete working [Menu Example](https://codepen.io/someone1218/pen/jOWmppP)
+Check out the complete working [Menu Example](https://codepen.io/someone1218/pen/ZEQyRLM)
 
 ### Attributes added by fullview.js
 fullView.js adds few attibutes including classes and HTML5 `data` attribute in different elements to keep a record of the status of the webpage:
@@ -134,7 +135,7 @@ fullView.js adds few attibutes including classes and HTML5 `data` attribute in d
 |`keyboardScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the keyboard
 |`mouseScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the mouse
 |`touchScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the touch
-|`onViewChange`|*function*|null|callback|This callback return the element of current section on every section change
+|`onViewChange`|*function*|null|callback|This callback return the element of current section and element of previous section on every section change
 
 
 ## Open Source License
