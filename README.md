@@ -147,7 +147,7 @@ fullView.js adds few attibutes including classes and HTML5 `data` attribute in d
 |`navbar`|*string*|undefined|selector|To link the elements of the navigation with the sections|
 |`dots`|*boolean*|true|true or false|For side dots navigation visibility|
 |`dotsPosition`|*string*|right|right or left|Defines side dots navigation positioning|
-|`dotsTooltips`|*boolean*|false|true or false|Shows a tooltips for the sections on hover of dots navigation.|
+|`dotsTooltips`|*boolean*|false|true or false|Shows a tooltips for the sections on hover of dots navigation Element.|
 |`easing`|*string*|linear|swing or linear|Defines the transition effect
 |`backToTop`|*boolean*|false|true or false|Defines whether scrolling down in the last section should scroll to the start one or not.
 |`keyboardScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the keyboard
