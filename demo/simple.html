@@ -192,10 +192,17 @@
                 keyboardScrolling: true,
 
                 // Callback
-                onViewChange: function (currentView, preView) {
+                onScrollEnd: function (currentView, previousView, direction) {
+                    // console.log("Direction", direction)
+                    // console.log("Current", currentView)
+                    // console.log("Previus", previousView)
+                },
+                onScrollStart: function (currentView, destinationView, direction) {
+                    console.log("Direction", direction)
                     console.log("Current", currentView)
-                    console.log("Previus", preView)
-                }
+                    console.log("Destination", destinationView)
+                },
+
             });
 
             $("#down").click(function () {

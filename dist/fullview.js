@@ -24,6 +24,7 @@
         this.currentView = 0;
         this.previousView = 0;
         this.isScrolling = false;
+        this.isProgress = false;
         this.offsets = [];
         this.$dotsElement = null;
         this.$navbar = null;
@@ -126,29 +127,51 @@
                 }
             }
 
-            this.scrollTo = function scrollTo($view) {
+            this.scrollTo = function scrollTo($view, dir) {
 
                 var plugin = this;
 
                 $view = parseInt($view);
 
                 if (this.offsets[$view] !== undefined && typeof $view === 'number') {
+                    this.isProgress = true;
                     this.previousView = this.currentView === $view ? this.previousView : this.currentView;
                     this.currentView = $view;
+
+                    if (dir === undefined) {
+                        if (this.previousView > this.currentView) {
+                            dir = "up"
+                        } else if (this.previousView < this.currentView) {
+                            dir = "down"
+                        }
+                    }
+
+                    // Event OnScrollStart
+                    this.callback("onScrollStart", {
+                        destination: $view,
+                        current: this.previousView,
+                        direction: dir
+                    });
+
+
                     this.$htmlBody.stop(true).animate(
                         {
                             scrollTop: this.offsets[$view].offset
                         }, {
                         easing: this.options.easing === 'swing' ? 'swing' : 'linear',
-                        duration: 350
+                        duration: this.options.speed
                     }).promise().then(function () {
                         plugin.changeActiveStatus($view);
                         if (plugin.isScrolling === true) {
                             setTimeout(function () {
                                 plugin.isScrolling = false;
-                            }, 800);
+                            }, plugin.options.speed + 320);
                         }
-                        plugin.callback();
+                        this.isProgress = false;
+                        // Event OnScrollEnd
+                        plugin.callback("onScrollEnd", {
+                            direction: dir
+                        });
                     });
                 } else {
                     console.warn("The View You Want To Scroll To Does not Exist!")
@@ -173,10 +196,11 @@
             }
 
             this.scrollDown = function scrollDown() {
+                var dir = "down";
                 if (this.currentView < this.$views.length - 1) {
                     this.previousView = this.currentView;
                     this.currentView++;
-                    this.scrollTo(this.currentView);
+                    this.scrollTo(this.currentView, dir);
                 }
                 else if (this.currentView === this.$views.length - 1) {
                     this.isScrolling = false;
@@ -184,18 +208,18 @@
                         this.isScrolling = true;
                         this.previousView = this.currentView;
                         this.currentView = 0;
-                        this.scrollTo(this.currentView);
+                        this.scrollTo(this.currentView, dir);
                     }
                 }
                 return this;
             }
 
             this.scrollUp = function scrollUp() {
-
+                var dir = "up";
                 if (this.currentView > 0) {
                     this.previousView = this.currentView;
                     this.currentView--;
-                    this.scrollTo(this.currentView);
+                    this.scrollTo(this.currentView, dir);
                 } else if (this.currentView === 0) {
                     this.isScrolling = false;
                 }
@@ -216,6 +240,18 @@
             this.isScrolling = false;
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
+
+            if (typeof this.options.speed !== 'number') {
+                this.options.speed = 500;
+                console.warn("Speed Should be of Type Number")
+            } else {
+
+                if (this.options.speed <= 300) {
+                    this.options.speed = 300;
+                    console.warn("Min Speed is 350 miliseconds")
+                }
+            }
+
 
 
             // Calculating Offsets
@@ -401,14 +437,19 @@
             this.$views.off('.' + this._name);
         },
 
-        callback: function () {
-            // Cache onViewChange option
-            var onViewChange = this.options.onViewChange;
+        callback: function (eventName, addtional) {
+            // Cache onScrollEnd option
+            var onScrollStart = this.options.onScrollStart;
+            var onScrollEnd = this.options.onScrollEnd;
 
-            if (typeof onViewChange === 'function') {
+            if (typeof onScrollEnd === 'function' && eventName === "onScrollEnd") {
+                // Current, Previous, Direction
+                onScrollEnd(this.$views.eq(this.currentView), this.$views.eq(this.previousView), addtional.direction);
+            }
 
-                // Current, Pre
-                onViewChange(this.$views.eq(this.currentView), this.$views.eq(this.previousView));
+            if (typeof onScrollStart === 'function' && eventName === "onScrollStart") {
+                // Current, Destination, Direction
+                onScrollStart(this.$views.eq(addtional.current), this.$views.eq(addtional.destination), addtional.direction);
             }
 
         }
@@ -441,14 +482,17 @@
         //Scrolling
         easing: 'linear',
         backToTop: false,
+        speed: 500, //ms
+
         // Accessibility
         keyboardScrolling: true,
         mouseScrolling: true,
         touchScrolling: true,
 
-
         // Callback
-        onViewChange: null,
+        onScrollEnd: null,
+        onScrollStart: null,
+
     };
 
 })(jQuery, window, document);

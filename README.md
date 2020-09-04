@@ -70,16 +70,18 @@ You surely can add `active` class to any section for different starting point ra
 You have to use fullView.js as a jQuery plugin and be sure you place this script in footer.
 ```javascript
 $("#fullview").fullView({
-	//Options
+	//Optional
 	dots:  true,
 	dotsPosition:  'right',
 	// Read Docs for more options details
 
-	// Callback
-	onViewChange:  function (currentView, previousView) {
-	       console.log("Current", currentView);
-	       console.log("Previus", previousView);
-	}
+	// Callbacks
+	onScrollStart:  function (currentView, destinationView, direction) {
+	      //  Do Something Usefull
+   },
+   onScrollEnd:  function (currentView, previousView, direction) {
+         //  Do Something Usefull
+   }
 })
 ```
 ### Creating Navigation to Sections
@@ -148,12 +150,14 @@ fullView.js adds few attibutes including classes and HTML5 `data` attribute in d
 |`dots`|*boolean*|true|true or false|For side dots navigation visibility|
 |`dotsPosition`|*string*|right|right or left|Defines side dots navigation positioning|
 |`dotsTooltips`|*boolean*|false|true or false|Shows a tooltips for the sections on hover of dots navigation element.|
-|`easing`|*string*|linear|swing or linear|Defines the transition effect
-|`backToTop`|*boolean*|false|true or false|Defines whether scrolling down in the last section should scroll to the start one or not.
-|`keyboardScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the keyboard
-|`mouseScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the mouse
-|`touchScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the touch
-|`onViewChange`|*function*|null|callback|This callback return the element of current section and element of previous section on every section change
+|`speed`|*number*|500|milliseconds(>=350)|Speed in milliseconds for the scrolling transitions.|
+|`easing`|*string*|linear|swing or linear|Defines the transition effect.|
+|`backToTop`|*boolean*|false|true or false|Defines whether scrolling down in the last section should scroll to the start one or not.|
+|`keyboardScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the keyboard.|
+|`mouseScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the mouse.|
+|`touchScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the touch.|
+|`onScrollStart`|*function*|null|callback|This callback return the element of current section, element of destination section and scroll direction on every section change.|
+|`onScrollEnd`|*function*|null|callback|This callback return the element of current section, element of previous section  and scroll direction on every section change.|
 
 
 ## Open Source License
