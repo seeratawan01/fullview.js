@@ -14,7 +14,7 @@ Also comes with a side navigation dots, containing anchor links that allow the v
 | ------------ | ----------- | ----- | ----- | ------ | ------- |
 ---
 
-[![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/fullview.js?label=fullView.js%20Version%20)](https://github.com/seeratawan01/fullview.js) [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://www.gnu.org/licenses/gpl-3.0.html) [![License](https://img.shields.io/npm/dt/fullview?color=orange&label=total%20downloads)](https://www.npmjs.com/package/fullview) [![License](https://img.shields.io/npm/dm/fullview)](https://www.npmjs.com/package/fullview)  [![License](https://img.shields.io/bundlephobia/min/fullview?color=yellow&label=File%20Size)](https://www.npmjs.com/package/fullview)
+[![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/fullview.js?label=fullView.js%20Version%20)](https://github.com/seeratawan01/fullview.js) [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://www.gnu.org/licenses/gpl-3.0.html) [![downloads](https://img.shields.io/npm/dt/fullview?color=orange&label=total%20downloads)](https://www.npmjs.com/package/fullview) [![downloadspermonths](https://img.shields.io/npm/dm/fullview)](https://www.npmjs.com/package/fullview) [![hits](https://data.jsdelivr.com/v1/package/npm/fullview/badge)](https://www.jsdelivr.com/package/npm/fullview) [![filesize](https://img.shields.io/bundlephobia/min/fullview?color=yellow&label=File%20Size)](https://www.npmjs.com/package/fullview)
 
 
 [Demo online](http://seeratawan.goprogs.com/fullView/) | [Codepen](https://codepen.io/collection/nebMLL) | [Tutorial](https://medium.com/@seeratsdsking/how-to-build-a-full-screen-scrolling-website-12113bb98088)
@@ -118,7 +118,7 @@ $("#fullview").fullView({
 ```
 Check out the complete working [Menu Example](https://codepen.io/someone1218/pen/ZEQyRLM)
 
-### Default Side Navigation
+### Default Side Navigation (Dots)
 FullView.js also comes with side dots navigation, To disable, `dots` option will be use.  The positioning of side navigation will be change by using `dotsPosition` option. 
 ```javascript
 /* Script */
@@ -130,7 +130,7 @@ $("#fullview").fullView({
 })
 ```
 #### Tooltips
-In order to add tooltips to Side Navigation 'dot' elements, an `data-tooltip` an attribute will be added to any section and an option `dotsTooltips` will be changed to true. 
+In order to add tooltips to Side Navigation 'dot' elements, `data-tooltip` attribute will be added to any section and an option `dotsTooltips` will be changed to true. 
 
 ```html
 <div data-tooltip="Section Title">Some section</div>
@@ -147,7 +147,7 @@ fullView.js adds few attibutes including classes and HTML5 `data` attribute in d
 |`navbar`|*string*|undefined|selector|To link the elements of the navigation with the sections|
 |`dots`|*boolean*|true|true or false|For side dots navigation visibility|
 |`dotsPosition`|*string*|right|right or left|Defines side dots navigation positioning|
-|`dotsTooltips`|*boolean*|false|true or false|Shows a tooltips for the sections on hover of dots navigation Element.|
+|`dotsTooltips`|*boolean*|false|true or false|Shows a tooltips for the sections on hover of dots navigation element.|
 |`easing`|*string*|linear|swing or linear|Defines the transition effect
 |`backToTop`|*boolean*|false|true or false|Defines whether scrolling down in the last section should scroll to the start one or not.
 |`keyboardScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the keyboard
