@@ -3,12 +3,33 @@ var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-clean-css');
 
+const browsersync = require("browser-sync").create();
+
 var { src, series, parallel, dest, watch } = require('gulp');
 
 var pjson = require('./package.json');
 
 var jsPath = 'src/fullview.js';
 var cssPath = 'src/fullview.css';
+
+// BrowserSync
+function browserSync(done) {
+    browsersync.init({
+        server: {
+            baseDir: "./"
+        },
+        port: 3000
+    }, function () {
+        // something you want to do
+    });
+    done();
+}
+
+// BrowserSync reload
+function browserSyncReload(done) {
+    browsersync.reload();
+    done();
+}
 
 
 function jsTask() {
@@ -22,7 +43,8 @@ function jsTask() {
         }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('.'))
-        .pipe(dest('./dist'));
+        .pipe(dest('./dist'))
+        .pipe(browsersync.stream());
 }
 
 
@@ -38,15 +60,17 @@ function cssTask() {
         }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('.'))
-        .pipe(dest('./dist'));
+        .pipe(dest('./dist'))
+        .pipe(browsersync.stream());
 };
 
 function watchTask() {
-    watch([cssPath, jsPath], { interval: 1000 }, parallel(cssTask, jsTask));
+    watch([cssPath, jsPath], { interval: 1000 }, parallel(cssTask, jsTask, browserSync));
+    watch("./**/*.html", browserSyncReload);
 }
 
 exports.watch = series(
-    parallel(jsTask, cssTask),
+    parallel(jsTask, cssTask, browserSync),
     watchTask
 );
 

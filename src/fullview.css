@@ -1,5 +1,5 @@
 /*!
- * fullView 1.0.9
+ * fullView 1.1.0
  * https://github.com/seeratawan01/fullview.js
  *
  * @license GPLv3 for open source use only
@@ -80,7 +80,7 @@ body {
     z-index: 1;
     cursor: pointer;
     text-decoration: none;
-    background-color: #1c85e1;
+    background-color: #888888;
     border-radius: 50%;
     margin: 0 auto;
     width: 7px;
@@ -92,10 +92,56 @@ body {
 #fv-dots ul a.active span {
     width: 9px;
     height: 9px;
-    background-color: #01427a;
+    background-color: #bdbdbd;
 }
 
 #fv-dots ul a:hover span {
     width: 9px;
     height: 9px;
+}
+
+/* Tooltip container */
+.fv-tooltip {
+    position: relative;
+    transition: all .65s cubic-bezier(.84, -0.18, .31, 1.26);
+}
+
+/* Tooltip text */
+.fv-tooltip .fv-tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background: #3E474F;
+    border-radius: .25em;
+    color: #EDEFF0;
+    text-align: center;
+    padding: 5px 0;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+
+    top: -1px;
+    right: 105%;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.fv-tooltip:hover .fv-tooltiptext {
+    visibility: visible;
+}
+
+.fv-tooltip .fv-tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    /* To the right of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #3E474F;
+}
+
+.fv-tooltip.fv-tooltip-left .fv-tooltiptext::after {
+    left: unset;
+    right: 100%;
+    border-color: transparent #3E474F transparent transparent;
 }

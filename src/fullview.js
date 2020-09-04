@@ -1,5 +1,5 @@
 /*!
- * fullView 1.0.9
+ * fullView 1.1.0
  * https://github.com/seeratawan01/fullview.js
  *
  * @license GPLv3 for open source use only
@@ -32,7 +32,6 @@
         this.lastX = null;
 
         this.init();
-
 
     }
 
@@ -79,14 +78,38 @@
                     $dots.remove();
                 }
                 var div = $("<div>").attr("id", "fv-dots").append('<ul>');
-                this.$views.each(function (i) {
-                    div.find('ul').append('<li><a data-scroll="' + i + '" href="#" class=""><span></span></a></li>')
-                });
+
+                if (this.options.dotsTooltips === true) {
+                    var plugin = this;
+                    this.$views.each(function (i) {
+                        var tooltipTitle = plugin.$views.eq(i).attr('data-tooltip') ? plugin.$views.eq(i).attr('data-tooltip') : null;
+                        if (tooltipTitle) {
+                            div.find('ul').append('<li class="fv-tooltip"><a data-scroll="' + i + '" href="#" class=""><span></span></a><span class="fv-tooltiptext">' + tooltipTitle + '</span></li>')
+                        } else {
+                            div.find('ul').append('<li class="fv-tooltip"><a data-scroll="' + i + '" href="#" class=""><span></span></a></li>')
+                        }
+                    });
+                } else {
+                    this.$views.each(function (i) {
+                        div.find('ul').append('<li><a data-scroll="' + i + '" href="#" class=""><span></span></a></li>')
+                    });
+                }
+
+
                 if (this.options.dotsPosition !== 'right') {
                     div.css({
                         left: '4%'
                     });
+
+                    div.find('.fv-tooltip .fv-tooltiptext').css({
+                        right: 'unset',
+                        left: '105%'
+                    })
+
+                    div.find('.fv-tooltip').addClass('fv-tooltip-left');
+
                 }
+
 
                 $('body').append(div);
 
@@ -401,6 +424,7 @@
                 if (!$.data(this, fullView)) {
                     $.data(this, fullView, new FullView(this, options));
                 }
+
             })
         }
 
@@ -412,6 +436,8 @@
         navbar: undefined,
         dots: true,
         dotsPosition: 'right',
+        dotsTooltips: false,
+
         //Scrolling
         easing: 'linear',
         backToTop: false,
@@ -420,7 +446,6 @@
         mouseScrolling: true,
         touchScrolling: true,
 
-        // AutoPlay
 
         // Callback
         onViewChange: null,

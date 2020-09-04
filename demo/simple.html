@@ -142,11 +142,11 @@
     </div>
 
     <div id="fullview">
-        <div id="section1" class="active">
+        <div id="section1" class="active" data-tooltip="Section 1 Title">
             <h2>Section 1</h2>
             <button title="Down" id="down"><span>Click Here</span></button>
         </div>
-        <div id="section2">
+        <div id="section2" data-tooltip="Section 2 Title">
             <h2>Section 2</h2>
             <div class="form">
                 <form>
@@ -160,10 +160,10 @@
                 </form>
             </div>
         </div>
-        <div id="section3">
+        <div id="section3" data-tooltip="Section 3 Title">
             <h2>Section 3</h2>
         </div>
-        <div id="section4">
+        <div id="section4" data-tooltip="Section 4 Title">
             <h2>Section 4</h2>
         </div>
     </div>
@@ -182,6 +182,7 @@
                 navbar: "#navbar",
                 dots: true,
                 dotsPosition: 'right',
+                dotsTooltips: true,
 
                 //Scrolling
                 easing: 'swing',

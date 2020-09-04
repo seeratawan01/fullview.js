@@ -1,6 +1,6 @@
 {
   "name": "fullview",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Create fullscreen scrolling websites",
   "main": "dist/fullview.js",
   "authors": [
@@ -43,6 +43,7 @@
   },
   "homepage": "https://github.com/seeratawan01/fullview.js",
   "devDependencies": {
+    "browser-sync": "^2.26.12",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-header-comment": "^0.8.0",

@@ -78,7 +78,7 @@ $("#fullview").fullView({
 	// Callback
 	onViewChange:  function (currentView, previousView) {
 	       console.log("Current", currentView);
-          console.log("Previus", previousView);
+	       console.log("Previus", previousView);
 	}
 })
 ```
@@ -118,6 +118,23 @@ $("#fullview").fullView({
 ```
 Check out the complete working [Menu Example](https://codepen.io/someone1218/pen/ZEQyRLM)
 
+### Default Side Navigation
+FullView.js also comes with side dots navigation, To disable, `dots` option will be use.  The positioning of side navigation will be change by using `dotsPosition` option. 
+```javascript
+/* Script */
+$("#fullview").fullView({
+	dots:  true, // Default 'true'
+	// Other Options
+	dotsPosition:  'right', // Default 'right'
+	dotsTooltips:  true, // Default 'false'
+})
+```
+#### Tooltips
+In order to add tooltips to Side Navigation 'dot' elements, an `data-tooltip` an attribute will be added to any section and an option `dotsTooltips` will be changed to true. 
+
+```html
+<div data-tooltip="Section Title">Some section</div>
+```
 ### Attributes added by fullview.js
 fullView.js adds few attibutes including classes and HTML5 `data` attribute in different elements to keep a record of the status of the webpage:
 -   `active` is added the current visible section.
@@ -130,6 +147,7 @@ fullView.js adds few attibutes including classes and HTML5 `data` attribute in d
 |`navbar`|*string*|undefined|selector|To link the elements of the navigation with the sections|
 |`dots`|*boolean*|true|true or false|For side dots navigation visibility|
 |`dotsPosition`|*string*|right|right or left|Defines side dots navigation positioning|
+|`dotsTooltips`|*boolean*|false|true or false|Shows a tooltips for the sections on hover of dots navigation.|
 |`easing`|*string*|linear|swing or linear|Defines the transition effect
 |`backToTop`|*boolean*|false|true or false|Defines whether scrolling down in the last section should scroll to the start one or not.
 |`keyboardScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the keyboard
