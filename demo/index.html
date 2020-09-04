@@ -155,7 +155,7 @@
                 backToTop: true,
 
                 // Callback
-                onViewChange: function (currentView) {
+                onScrollEnd: function (currentView) {
                     if (!currentView.hasClass('nav-transparent')) {
                         $('.header').addClass('changed');
                     } else {

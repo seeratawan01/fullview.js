@@ -69,19 +69,24 @@ You surely can add `active` class to any section for different starting point ra
 ### Initialization
 You have to use fullView.js as a jQuery plugin and be sure you place this script in footer.
 ```javascript
+$("#fullview").fullView();
+```
+```javascript
+// OR - For More Customization
 $("#fullview").fullView({
 	//Optional
 	dots:  true,
 	dotsPosition:  'right',
+	// ...
 	// Read Docs for more options details
 
 	// Callbacks
 	onScrollStart:  function (currentView, destinationView, direction) {
 	      //  Do Something Usefull
-   },
-   onScrollEnd:  function (currentView, previousView, direction) {
-         //  Do Something Usefull
-   }
+	},
+	onScrollEnd:  function (currentView, previousView, direction) {
+	      //  Do Something Usefull
+	}
 })
 ```
 ### Creating Navigation to Sections
@@ -156,8 +161,8 @@ fullView.js adds few attibutes including classes and HTML5 `data` attribute in d
 |`keyboardScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the keyboard.|
 |`mouseScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the mouse.|
 |`touchScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the touch.|
-|`onScrollStart`|*function*|null|callback|This callback return the element of current section, element of destination section and scroll direction on every section change.|
-|`onScrollEnd`|*function*|null|callback|This callback return the element of current section, element of previous section  and scroll direction on every section change.|
+|`onScrollStart`|*function*|null|callback|This callback return the element of current section, element of destination section and scroll direction on every scroll Start.|
+|`onScrollEnd`|*function*|null|callback|This callback return the element of current section, element of previous section  and scroll direction on every scroll finish.|
 
 
 ## Open Source License
