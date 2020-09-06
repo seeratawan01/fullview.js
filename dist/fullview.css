@@ -1,5 +1,5 @@
 /**
- * fullView 1.1.1
+ * fullView v1.1.2
  */
 
 /*!
