@@ -8,7 +8,8 @@
   ],
   "namespace": "fullViewJS",
   "scripts": {
-    "develop": "gulp watch"
+    "develop": "gulp watch",
+    "build": "gulp"
   },
   "repository": {
     "type": "git",

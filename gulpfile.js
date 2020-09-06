@@ -2,15 +2,16 @@ var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-clean-css');
-
-const browsersync = require("browser-sync").create();
-
+var headerComment = require('gulp-header-comment');
 var { src, series, parallel, dest, watch } = require('gulp');
+
+var browsersync = require("browser-sync").create();
 
 var pjson = require('./package.json');
 
 var jsPath = 'src/fullview.js';
 var cssPath = 'src/fullview.css';
+
 
 // BrowserSync
 function browserSync(done) {
@@ -35,6 +36,7 @@ function browserSyncReload(done) {
 function jsTask() {
     return src(jsPath)
         .pipe(sourcemaps.init())
+        .pipe(headerComment('fullView v' + pjson.version))
         .pipe(dest('./dist'))
         .pipe(uglify({
             output: {
@@ -43,6 +45,7 @@ function jsTask() {
         }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('.'))
+        .pipe(headerComment('fullView v' + pjson.version))
         .pipe(dest('./dist'))
         .pipe(browsersync.stream());
 }
@@ -52,6 +55,7 @@ function cssTask() {
 
     return src(cssPath)
         .pipe(sourcemaps.init())
+        .pipe(headerComment('fullView v' + pjson.version))
         .pipe(dest('./dist'))
         .pipe(minifyCss({
             compatibility: 'ie8',
@@ -60,6 +64,7 @@ function cssTask() {
         }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('.'))
+        .pipe(headerComment('fullView v' + pjson.version))
         .pipe(dest('./dist'))
         .pipe(browsersync.stream());
 };

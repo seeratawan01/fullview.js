@@ -1,0 +1,105 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    background: #ececec;
+}
+
+#fullview>div {
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.688rem;
+    flex-direction: column;
+    padding: 25px;
+}
+
+#fullview>div:nth-child(even) {
+    background-color: #282c34;
+    color: #ffffff;
+}
+
+#fullview h2 {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+#navbar {
+    position: fixed;
+    width: 100%;
+    padding: 20px;
+}
+
+#navbar ul {
+    list-style: none;
+    text-align: center;
+}
+
+#navbar li,
+button {
+    display: inline-block;
+    padding: 8px 17px;
+    background-color: #ffffff;
+    box-shadow: 5px 10px #888888;
+    border: 1px solid transparent;
+    margin-right: 12px;
+    margin-bottom: 12px;
+
+}
+
+button {
+    cursor: pointer;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+select,
+input {
+    display: inline-block;
+    padding: 8px 17px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 9px #888;
+    border: 1px solid transparent;
+}
+
+#navbar li:last-of-type {
+    margin-right: 0;
+}
+
+#navbar li a {
+    text-decoration: none;
+    color: #282c34;
+}
+
+#navbar li a.active {
+    font-weight: 600;
+}
+
+#down {
+    box-shadow: 0px 2px 9px #888;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+/* Override Styles */
+#fv-dots ul li a span {
+    background-color: #888888;
+    border-radius: 0;
+    transition: all 0.5s ease;
+}
+
+#fv-dots ul a.active span {
+    width: 11px;
+    height: 11px;
+    transform: rotate(45deg);
+    background-color: #bdbdbd;
+}

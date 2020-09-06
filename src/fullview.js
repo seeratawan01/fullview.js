@@ -1,5 +1,4 @@
 /*!
- * fullView 1.1.0
  * https://github.com/seeratawan01/fullview.js
  *
  * @license GPLv3 for open source use only
@@ -153,12 +152,11 @@
                         direction: dir
                     });
 
-
                     this.$htmlBody.stop(true).animate(
                         {
                             scrollTop: this.offsets[$view].offset
                         }, {
-                        easing: this.options.easing === 'swing' ? 'swing' : 'linear',
+                        easing: $.easing[this.options.easing] ? this.options.easing : 'linear',
                         duration: this.options.speed
                     }).promise().then(function () {
                         plugin.changeActiveStatus($view);

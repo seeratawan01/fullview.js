@@ -155,8 +155,8 @@ fullView.js adds few attibutes including classes and HTML5 `data` attribute in d
 |`dots`|*boolean*|true|true or false|For side dots navigation visibility|
 |`dotsPosition`|*string*|right|right or left|Defines side dots navigation positioning|
 |`dotsTooltips`|*boolean*|false|true or false|Shows a tooltips for the sections on hover of dots navigation element.|
-|`speed`|*number*|500|milliseconds(>=350)|Speed in milliseconds for the scrolling transitions.|
-|`easing`|*string*|linear|swing or linear|Defines the transition effect.|
+|`speed`|*number*|500|milliseconds (>=350)|Speed in milliseconds for the scrolling transitions.|
+|`easing`|*string*|linear|swing, linear (or any [third-party easing library](https://github.com/gdsmith/jquery.easing))|Defines the transition effect.|
 |`backToTop`|*boolean*|false|true or false|Defines whether scrolling down in the last section should scroll to the start one or not.|
 |`keyboardScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the keyboard.|
 |`mouseScrolling`|*boolean*|true|true or false|Defines if the scroll can be performed using the mouse.|

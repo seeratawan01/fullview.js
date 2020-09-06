@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Full View | Demo</title>
+    <title>Full View | Easing Demo</title>
     <link rel="stylesheet" href="../dist/fullview.min.css">
 
     <link rel="stylesheet" href="./css/theme-2.css">
@@ -64,6 +64,8 @@
 
 
     <script src="./js/jquery-3.5.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="../dist/fullview.min.js"></script>
 
     <script>
@@ -78,6 +80,8 @@
                 dotsTooltips: true,
 
                 //Scrolling
+                easing: 'easeInOutBack',
+                speed: 700,
                 backToTop: true,
 
                 // Accessibility
