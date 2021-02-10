@@ -9,6 +9,9 @@ Its enables the visitor to navigate through pages with a smooth full-screen scro
 
 Also comes with a side navigation dots, containing anchor links that allow the visitor to scroll the page to a specific content section.
 
+#### Buy Me a Coffee
+[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dseeratawan%26type%3Dpledges&style=for-the-badge)](https://patreon.com/seeratawan)
+
 #### Compatibility
 |  IE 9+ | Opera | Chrome | firefox | Android 4.1+ | Safari 7.1+ |
 | ------------ | ----------- | ----- | ----- | ------ | ------- |
